@@ -10,8 +10,8 @@ model = dict(
                 num_modules=1,
                 num_branches=1,
                 block='BOTTLENECK',
-                num_blocks=(4, ),
-                num_channels=(64, )),
+                num_blocks=(4,),
+                num_channels=(64,)),
             stage2=dict(
                 num_modules=1,
                 num_branches=2,
@@ -31,7 +31,7 @@ model = dict(
                 num_blocks=(4, 4, 4, 4),
                 num_channels=(32, 64, 128, 256))
         ),
-        #frozen_stages=-1,
+        # frozen_stages=-1,
         norm_eval=False,
     ),
     neck=dict(
@@ -242,13 +242,13 @@ data = dict(
         with_label=True,
         extra_aug=dict(
             photo_metric_distortion=dict(brightness_delta=180, contrast_range=(0.5, 1.5),
-                 saturation_range=(0.5, 1.5), hue_delta=18),
-             random_crop=dict(min_ious=(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9), min_crop_size=0.1),
-         ),
+                                         saturation_range=(0.5, 1.5), hue_delta=18),
+            random_crop=dict(min_ious=(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9), min_crop_size=0.1),
+        ),
     ),
     test=dict(
         type=dataset_type,
-	ann_file=data_root + 'val_gt_for_mmdetction.json',
+        ann_file=data_root + 'val_gt_for_mmdetection.json',
         img_prefix=data_root + '/test_images/',
         img_scale=(1920, 1024),
         img_norm_cfg=img_norm_cfg,
@@ -258,9 +258,9 @@ data = dict(
         with_label=False,
         test_mode=True))
 # optimizer
-mean_teacher=True
+mean_teacher = True
 optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
-optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2), mean_teacher = dict(alpha=0.999))
+optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2), mean_teacher=dict(alpha=0.999))
 # learning policy
 lr_config = dict(
     policy='cosine',
@@ -282,6 +282,6 @@ total_epochs = 20
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
 work_dir = './work_dirs/caviar_cascade_rcnn_hrnetv2p_w32'
-load_from = None
+load_from = './models_pretrained/epoch_14.pth'
 resume_from = None
 workflow = [('train', 1)]
