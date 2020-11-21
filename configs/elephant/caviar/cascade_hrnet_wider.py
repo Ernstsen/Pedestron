@@ -258,7 +258,7 @@ data = dict(
         with_label=False,
         test_mode=True))
 # optimizer
-mean_teacher = True
+mean_teacher = False
 optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001)
 optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2), mean_teacher=dict(alpha=0.999))
 # learning policy
