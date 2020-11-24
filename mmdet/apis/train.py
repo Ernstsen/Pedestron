@@ -184,6 +184,7 @@ def _dist_train(model, dataset, cfg, validate=False):
 
 
 def _non_dist_train(model, dataset, cfg, validate=False):
+    print('Before data loaders')
     # prepare data loaders
     data_loaders = [
         build_dataloader(
@@ -193,6 +194,7 @@ def _non_dist_train(model, dataset, cfg, validate=False):
             cfg.gpus,
             dist=False)
     ]
+    print('After data loaders')
     # put model on gpus
     model = MMDataParallel(model, device_ids=range(cfg.gpus)).cuda()
 
